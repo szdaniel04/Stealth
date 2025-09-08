@@ -1,0 +1,38 @@
+﻿<Window x:Class="Stealth.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Stealth"
+        mc:Ignorable="d"
+        Title="Stealth" Height="740" Width="910">
+    <DockPanel>
+        <Grid DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Column="0" ItemsSource="{Binding Maps}" Height="25" Width="100" x:Name="combobox" SelectedIndex="0"></ComboBox>
+            <Button Grid.Column="1" Content="Start new Game" Width="100" Command="{Binding NewGameCommand}" CommandParameter="{Binding ElementName=combobox, Path=SelectedIndex}"/>
+            <Button Grid.Column="2" Content="{Binding ResumeButtonLabel}" Width="100" Command="{Binding StopCommand}"/>
+        </Grid>
+        <Grid Margin="10" >
+            <ItemsControl ItemsSource="{Binding Buttons, Mode=OneWay}">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="{Binding Size}" Columns="{Binding Size}" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Content="{Binding}" IsEnabled="False" FontSize="20">
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+    </DockPanel>
+</Window>
